@@ -1,85 +1,61 @@
 {% load static %}
 {% load staticfiles %}
 
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="个人作品">
     <meta name="author" content="孙光祖">
+
     <title>孙光祖的网站</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/cover.css' %}" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]>
-    <script src="{% static 'js/ie8-responsive-file-warning.js' %}"></script><![endif]-->
-    <script src="{% static 'js/ie-emulation-modes-warning.js' %}"></script>
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="{% static 'js/html5shiv.min.js' %}"></script>
     <script src="{% static 'js/respond.min.js' %}"></script>
     <![endif]-->
-
-    <style>
-        body {
-            background-image:url('{% static "image/background.jpg" %}');
-            background-size:100%;
-        }   
-    </style>
 </head>
 
 <body>
 
-<div class="site-wrapper">
+<div class="blog-masthead">
+    <div class="container">
+        <nav class="blog-nav">
+            <a class="blog-nav-item" href="#">文章</a>
+            <a class="blog-nav-item" href="#">相册</a>
+            <a class="blog-nav-item pull-right" href="#">登录注册</a>
+            <a class="blog-nav-item pull-right" href="#">返回主页</a>
 
-    <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-            <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand">主页文字</h3>
-                    <nav>
-                        <ul class="nav masthead-nav">
-                            <li class="active"><a href="#">主页按钮</a></li>
-                            <li><a href="#">主页按钮</a></li>
-                            <li><a href="#">联系我</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-            <div class="inner cover">
-                <h1 class="cover-heading">寻找Web前端工作</h1>
-                <p class="lead">这是我的个人主页，希望加入集体和大家一同工作，生活</p>
-                <p class="lead">
-                    <a href="#" class="btn btn-lg btn-default">主页按钮</a>
-                </p>
-            </div>
-
-            <div class="mastfoot">
-                <div class="inner">
-                    <p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a
-                            href="https://twitter.com/mdo">@mdo</a>.</p>
-                </div>
-            </div>
-
-        </div>
-
+        </nav>
     </div>
-
 </div>
+
+<div class="container">
+{% block container %}
+{% endblock %}
+</div>
+
+<footer class="blog-footer">
+    <p>Blog template built for <a href="http://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.
+    </p>
+    <p>
+        <a href="#">Back to top</a>
+    </p>
+</footer>
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -90,7 +66,5 @@
 <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
 
 
-<div></div>
-<div></div>
 </body>
 </html>

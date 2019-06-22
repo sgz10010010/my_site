@@ -17,13 +17,15 @@ def home(request):
 	return response
 
 
-def picture(request):
-	return render(request, 'home/picture.html')
-
-
 def cv_download(request):
 	file = open('static/sgz_cv.pdf', 'rb')
 	response = FileResponse(file)
 	response['Content-Type'] = 'application/octet-stream'
 	response['Content-Disposition'] = 'attachment;filename="sgz_cv.pdf"'
 	return response
+
+def construction(request):
+	return render(request, 'construction.html')
+
+def contact_me(request):
+	pass

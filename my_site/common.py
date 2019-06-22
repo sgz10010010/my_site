@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 def list_display(request, objs):
 	# 指定页码
 	page_num = int(request.GET.get('page', 1))
-	paginator = Paginator(objs, 10)
+	paginator = Paginator(objs, 15)
 	# 指定页
 	page_now = paginator.get_page(page_num)
 	# 总页数

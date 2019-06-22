@@ -1,10 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block container %}
+<div class="blog-header">
+    <h3 style="color:blue;"><b>文章详情</b></h3>
+</div>
+
+<div class="row">
+
+    <div class="col-sm-8 blog-main">
+
+        <div class="blog-post">
+            <h3><b>{{ article.title }}</b></h3>
+            <p class="blog-post-meta">作者: <a href="#">{{ article.author.username }}</a>&nbsp
+                创作时间: {{ article.created_time|date:"Y-m-d" }}&nbsp文章类型:
+                <a href="{% url 'articles_with_type' article.article_type.id %}">{{ article.article_type.type_name }} </a>&nbsp
+                阅读数: {{ read_count }}&nbsp回复数: {{ comments|length }}</p>
+            <hr>
+            {{ article.content }}
+        </div><!-- /.blog-post -->
+
+        <!-- 上下篇导航 -->
+        <nav aria-label="...">
+            <ul class="pager">
+                {% if prev_article %}
+                <li class="previous"><a href="{% url 'article_detail' prev_article.id %}"><span
+                        aria-hidden="true">&larr;</span>上一篇</a></li>
+                {% else %}
+                <li class="previous"><a href="#">无上一篇</a></li>
+                {% endif %}
+
+                {% if next_article %}
+                <li class="next"><a href="{% url 'article_detail' next_article.id %}">下一篇<span
+                        aria-hidden="true">&rarr;</span></a></li>
+                {% else %}
+                <li class="next"><a href="#"><span aria-hidden="true">&larr;</span>无下一篇</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <!-- 评论列表区 -->
+        <h3><b>评论列表(共{{ comments|length }}条)</b></h3>
+        <hr>
+        {% for comment in page_now %}
+        <p><font size="4">内容: {{ comment.text }} </font><br>作者: {{ comment.user }} 评论时间: {{ comment.comment_time }}
+        <hr>
+        </p>
+        {% empty %}
+        暂无评论
+        {% endfor %}
+        {% include 'page_nav.html' %}
+        <hr>
+        <!-- 评论提交区 -->
+        <h3><b>写评论</b></h3>
+        {% if user.is_authenticated %}
+        <form action="{% url 'add_article_comment' %}?from={{ request.get_full_path }}"
+              method="POST">
+            {% csrf_token %}
+            {{ comment_form }}
+            <input type="hidden" name="article_id" value="{{ article.id }}">
+            <input class="btn btn-info pull-right" type="submit" value="提交">
+        </form>
+        {% else %}
+        <h3>还没登录?</h3>
+        <a href="{% url 'login' %}">登入</a>或
+        <a href="{% url 'register' %}">注册</a>
+        {% endif %}
+
+    </div>
+
+    {% include 'article/type_list.html' %}
+
+</div><!-- /.row -->
+{% endblock %}
+

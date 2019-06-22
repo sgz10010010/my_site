@@ -50,3 +50,6 @@ def articles_with_type(request, type_id):
 	context['type_list'] = ArticleType.objects.annotate(article_num=Count('article'))
 	response = render(request, "article/articles_with_type.html", context)
 	return response
+
+def article_construction(request):
+	return render(request, 'article_construction.html')

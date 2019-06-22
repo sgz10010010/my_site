@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+    <div class="sidebar-module sidebar-module-inset">
+        <h4>文章系统描述</h4>
+        <p>文章系统描述文本</p>
+    </div>
+    <div class="sidebar-module">
+        <h4>文章分类</h4>
 
-</body>
-</html>
+            {% for type in type_list %}
+            <li><a href="{% url 'articles_with_type' type.id %}">{{ type.type_name }} ( 文章数:{{ type.article_num}} )</a>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+</div><!-- /.blog-sidebar -->
