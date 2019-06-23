@@ -1,8 +1,6 @@
 from django.shortcuts import render
 from article.models import Article
 from django.db.models.aggregates import Count
-from user_message.models import HomeMessage
-from user_message.forms import HomeMessageForm
 from my_site.common import list_display
 from django.http import FileResponse
 
@@ -24,8 +22,3 @@ def cv_download(request):
 	response['Content-Disposition'] = 'attachment;filename="sgz_cv.pdf"'
 	return response
 
-def construction(request):
-	return render(request, 'construction.html')
-
-def contact_me(request):
-	pass

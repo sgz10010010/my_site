@@ -16,7 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from home.views import home, contact_me, cv_download
+from home.views import home, cv_download
 
 urlpatterns = [
 	path('', home, name='home'),
@@ -25,5 +25,4 @@ urlpatterns = [
 	path('user/', include('user.urls'), name='user'),
 	path('user_message/', include('user_message.urls'), name='user_message'),
 	path('cv_download/', cv_download, name='cv_download'),
-	path('contact_me/', contact_me, name='contact_me'),
 ]

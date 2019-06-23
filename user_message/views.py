@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from .models import ArticleComment, HomeMessage
+from .models import ArticleComment, ImageComment
 from article.models import Article
+from image.models import Image
 from django.shortcuts import redirect
 
 
@@ -20,13 +21,15 @@ def add_article_comment(request):
 
 
 @login_required
-def add_home_message(request):
+def add_image_comment(request):
 	user = request.user
 	text = request.POST.get('text')
+	article_id = request.POST.get('image_id')
 	referer = request.GET.get('from')
 
-	home_message = HomeMessage()
-	home_message.user = user
-	home_message.text = text
-	home_message.save()
+	comment = ImageComment()
+	comment.user = user
+	comment.text = text
+	comment.image = Image.objects.get(id=article_id)
+	comment.save()
 	return redirect(referer, '/')

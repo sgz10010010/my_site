@@ -15,7 +15,8 @@
     <title>孙光祖的网站</title>
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-
+    <link href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet">
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
 
@@ -27,25 +28,45 @@
     <script src="{% static 'js/html5shiv.min.js' %}"></script>
     <script src="{% static 'js/respond.min.js' %}"></script>
     <![endif]-->
+    <style>
+        .normal-text {
+            white-space:pre-wrap;
+        }
+
+        .blog-header {
+            color:midnightblue;
+            text-shadow:2px 2px 8px midnightblue;
+        }
+
+        .list-group {
+            box-shadow: 2px 2px 8px grey;
+            padding: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="blog-masthead">
-    <div class="container">
-        <nav class="blog-nav">
-            <a class="blog-nav-item" href="#">文章</a>
-            <a class="blog-nav-item" href="#">相册</a>
-            <a class="blog-nav-item pull-right" href="#">登录注册</a>
-            <a class="blog-nav-item pull-right" href="#">返回主页</a>
-
-        </nav>
-    </div>
-</div>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar"></button>
+          <a class="navbar-brand" href="{% url 'home' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="{% url 'article_list' %}">文章</a></li>
+            <li><a href="#">相册</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
 <div class="container">
-{% block container %}
-{% endblock %}
+    {% block container %}
+    {% endblock %}
 </div>
 
 <footer class="blog-footer">

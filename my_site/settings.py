@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'user',
     'user_message',
     'article',
+    'image'
 ]
 
 MIDDLEWARE = [
