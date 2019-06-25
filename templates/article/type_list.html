@@ -1,11 +1,9 @@
-<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+<div class="col-sm-3 col-sm-offset-1 blog-sidebar" style="box-shadow: 2px 2px 8px grey;">
     <div class="sidebar-module sidebar-module-inset">
-        <h4>文章系统</h4>
+        <h4>文章分类</h4>
         <p></p>
     </div>
     <div class="sidebar-module">
-        <h4>文章分类</h4>
-
             {% for type in type_list %}
             <li><a href="{% url 'articles_with_type' type.id %}">{{ type.type_name }} ( 文章数:{{ type.article_num}} )</a>
             </li>

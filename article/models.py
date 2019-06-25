@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 # 模型: 文章类型
@@ -16,7 +17,7 @@ class Article(models.Model):
 	# 标题
 	title = models.CharField(max_length=50)
 	# 内容
-	content = models.TextField()
+	content = RichTextField()
 	# 文章类型
 	article_type = models.ForeignKey(ArticleType, on_delete=models.DO_NOTHING)
 	# 作者

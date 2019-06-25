@@ -1,17 +1,9 @@
 from django.shortcuts import render
-from article.models import Article
-from django.db.models.aggregates import Count
-from my_site.common import list_display
 from django.http import FileResponse
 
 
 def home(request):
-	home_message = HomeMessage.objects.all()
-	context = list_display(request, home_message)
-	context['articles'] = Article.objects.annotate(comment_num=Count('articlecomment'))[0:9]
-	context['home_message'] = home_message
-	context['home_message_form'] = HomeMessageForm()
-	response = render(request, 'home/home.html', context)
+	response = render(request, 'home/home.html')
 	return response
 
 
@@ -22,3 +14,5 @@ def cv_download(request):
 	response['Content-Disposition'] = 'attachment;filename="sgz_cv.pdf"'
 	return response
 
+def contact_me(request):
+	return render(request, 'home/contact_me.html')

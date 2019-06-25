@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # 模型: 图象
 class Image(models.Model):
 	# 图象
-	image = models.ImageField(upload_to='images/')
+	image = models.ImageField(upload_to='images/%Y/%m/%d/')
 	# 名字
 	name = models.CharField(max_length=30)
 	# 作者

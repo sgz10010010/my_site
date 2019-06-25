@@ -15,7 +15,7 @@ def article_detail(request, article_id):
 		article.read_count += 1
 		article.save()
 	# 上下文
-	context = list_display(request, comments)
+	context = list_display(request, comments, 8)
 	context['article'] = article
 	context['read_count'] = article.read_count
 	context['prev_article'] = Article.objects.filter(created_time__gt=article.created_time).last()
@@ -32,7 +32,7 @@ def article_detail(request, article_id):
 # 视图: 所有文章列表
 def article_list(request):
 	articles = Article.objects.annotate(comment_num=Count('articlecomment'))
-	context = list_display(request, articles)
+	context = list_display(request, articles, 15)
 	context['articles'] = articles
 	context['type_list'] = ArticleType.objects.annotate(article_num=Count('article'))
 	response = render(request, "article/article_list.html", context)
@@ -42,8 +42,8 @@ def article_list(request):
 # 视图: 指定文章类型的文章列表
 def articles_with_type(request, type_id):
 	type_name = ArticleType.objects.get(id=type_id).type_name
-	articles = Article.objects.filter(article_type=type_id)
-	context = list_display(request, articles)
+	articles = Article.objects.filter(article_type=type_id).annotate(comment_num=Count('articlecomment'))
+	context = list_display(request, articles, 15)
 	context['articles'] = articles
 	context['type_name'] = type_name
 	context['type_list'] = ArticleType.objects.annotate(article_num=Count('article'))

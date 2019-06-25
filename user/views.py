@@ -36,7 +36,7 @@ def success_login(request):
 # 视图:登出
 def logout(request):
 	auth.logout(request)
-	response = redirect(reverse('home'))
+	response = redirect(request.META.get('HTTP_REFERER'), reverse('home'))
 	return response
 
 

@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+登入成功!
+{% endblock %}
+
+{% block container %}
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-xs-12">
+            <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h4>登入成功!</h4>
+                        <hr>
+                        <h4>欢迎：{{ user.username }}</h4>
+                        <a href="{{ request.session.from }}">点此处返回</a>或<a href="{% url 'home' %}">跳转到首页</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

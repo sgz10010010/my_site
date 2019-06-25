@@ -5,10 +5,10 @@ from django.core.paginator import Paginator
 
 
 # 函数: 把对象集合分页
-def list_display(request, objs):
+def list_display(request, objs, num_per_page):
 	# 指定页码
 	page_num = int(request.GET.get('page', 1))
-	paginator = Paginator(objs, 15)
+	paginator = Paginator(objs, num_per_page)
 	# 指定页
 	page_now = paginator.get_page(page_num)
 	# 总页数

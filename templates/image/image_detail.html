@@ -2,7 +2,7 @@
 
 {% block container %}
 <div class="blog-header">
-    <h3><b>文章详情</b></h3>
+    <h3><b>图片浏览</b></h3>
 </div>
 
 <div class="row">
@@ -10,31 +10,31 @@
     <div class="col-sm-8 blog-main">
 
         <div class="blog-post">
-            <h4><b>{{ article.title }}</b></h4>
-            <p class="blog-post-meta">作者: <a href="#">{{ article.author.username }}</a>&nbsp
-                创作时间: {{ article.created_time|date:"Y-m-d" }}&nbsp文章类型:
-                <a href="{% url 'articles_with_type' article.article_type.id %}">{{ article.article_type.type_name }} </a>&nbsp
-                阅读数: {{ read_count }}&nbsp回复数: {{ comments|length }}</p>
+            <h4><b>{{ image.name }}</b></h4>
+            <p class="blog-post-meta">作者: <a href="#">{{ image.author.username }}</a>&nbsp
+                创作时间: {{ image.created_time|date:"Y-m-d" }}&nbsp阅读数: {{ read_count }}&nbsp回复数: {{ comments|length }}
+            </p>
             <hr>
-            <div>
-                {{ article.content|safe }}
+            <div class="normal-text">
+                    <img src="{% url 'home' %}media/{{ image.image }}" alt="相片" style="width:80%;margin:auto">
+                <div>{{ image.description }}</div>
             </div><!-- /.blog-post -->
 
             <!-- 上下篇导航 -->
             <nav aria-label="...">
                 <ul class="pager">
                     {% if prev_article %}
-                    <li class="previous"><a href="{% url 'article_detail' prev_article.id %}"><span
-                            aria-hidden="true">&larr;</span>上一篇</a></li>
+                    <li class="previous"><a href="{% url 'image_detail' prev_image.id %}"><span
+                            aria-hidden="true">&larr;</span>上一张</a></li>
                     {% else %}
-                    <li class="previous"><a href="#">无上一篇</a></li>
+                    <li class="previous"><a href="#">无上一张</a></li>
                     {% endif %}
 
                     {% if next_article %}
-                    <li class="next"><a href="{% url 'article_detail' next_article.id %}">下一篇<span
+                    <li class="next"><a href="{% url 'image_detail' next_image.id %}">下一张<span
                             aria-hidden="true">&rarr;</span></a></li>
                     {% else %}
-                    <li class="next"><a href="#"><span aria-hidden="true">&larr;</span>无下一篇</a></li>
+                    <li class="next"><a href="#"><span aria-hidden="true"></span>无下一张</a></li>
                     {% endif %}
                 </ul>
             </nav>
@@ -42,7 +42,7 @@
             <h3><b>评论列表(共{{ comments|length }}条)</b></h3>
             <hr>
             {% for comment in page_now %}
-            <p><font size="4">
+            <p class="normal-text"><font size="4">
                 {{ comment.user }}于{{ comment.comment_time }}说：{{ comment.text|safe }}
             </font><br>
             <hr>
@@ -55,17 +55,15 @@
             {% endif %}
             <hr>
             <!-- 评论提交区 -->
-
-            <form action="{% url 'add_article_comment' %}?from={{ request.get_full_path }}"
+            <form action="{% url 'add_image_comment' %}?from={{ request.get_full_path }}"
                   method="POST">
                 {% csrf_token %}
                 {{ comment_form }}
-                <input type="hidden" name="article_id" value="{{ article.id }}">
+                <input type="hidden" name="image_id" value="{{ image.id }}">
                 <input class="btn btn-info pull-right" type="submit" value="提交">
             </form>
         </div>
     </div>
-    {% include 'article/type_list.html' %}
 
 </div><!-- /.row -->
 {% endblock %}
