@@ -1,7 +1,6 @@
 {% load static %}
 {% load staticfiles %}
 
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -14,6 +13,8 @@
 
     <title>孙光祖的网站</title>
 
+    <link href="{% static 'css/main-672fb2495d.css' %}" rel="stylesheet">
+    <link href="{% static 'css/libs-450d8b8036.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/bootstrap-theme.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/theme.css' %}" rel="stylesheet">
@@ -26,15 +27,27 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="{% static 'js/html5shiv.min.js' %}"></script>
-    <script src="{% static 'js/respond.min.js' %}"></script>
-    <![endif]-->
+    <script src="{% static 'js/respond.min.js' %}"></script><![endif]-->
     <style>
-        .blog-header {
-            color:midnightblue;
-            text-shadow:2px 2px 8px midnightblue;
+        body {
+            padding: 0px;
         }
 
-        .list-group {
+        #main-content {
+            padding-top: 100px;
+            background-image: url('{% static "image/background.jpg" %}');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .blog-header, .sidebar-module-inset {
+            color: white;
+            text-shadow: 2px 2px 8px midnightblue;
+        }
+
+        .panel {
             box-shadow: 2px 2px 8px grey;
         }
 
@@ -57,71 +70,110 @@
 
         div.desc {
             padding: 15px;
-
         }
 
-
-
-
+        a:hover {
+            text-decoration:none;
+            }
     </style>
+
 </head>
 
 <body>
 
-<!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar"></button>
-            <a class="navbar-brand" href="{% url 'home' %}"><span class="glyphicon glyphicon-home"
-                                                                  aria-hidden="true"></span>主页</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="{% url 'article_list' %}"><b>文章</b></a></li>
-                <li><a href="{% url 'thumbnail' %}"><b>相册</b></a></li>
-            </ul>
-
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'contact_me' %}">联系我</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">账号 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">登出</a></li>
-                        {% else %}
-                        <li><a href="{% url 'login' %}">登入</a></li>
-                        {% endif %}
-                        <li role="separator" class="divider"></li>
-                        <li><a href="{% url 'register' %}">注册</a></li>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
-
-<div class="container">
-    {% block container %}
-    {% endblock %}
+<div class="menu menu--home menu--no-links menu--small" style="background-color: #F0F0F0;">
+    <div class="menu__page-title" ><a href="{% url 'home' %}" style="color: black;" title="点我返回主页">孙光祖的网站</a></div>
+    <div class="progress-bar" aria-hidden="true" style="height: 0px;"><span class="progress-bar__fill"></span></div>
 </div>
+<div class="site-nav site-nav--home site-nav--fixed">
+    <nav id="main-navigation" aria-label="main navigation">
+        <button class="site-nav__toggler" id="site-nav__toggler" aria-label="Show website navigation"
+                aria-expanded="false" aria-controls="site-nav__panel" title="拉出菜单">
+            <span class="bar" aria-hidden="true"></span>
+            <span class="bar" aria-hidden="true"></span><span class="bar" aria-hidden="true"></span>
+        </button>
+        <div class="site-nav__panel" aria-hidden="true" style="background-color: #F0F0F0;">
+            <ul class="site-nav__menu">
+                <li class="site-nav__menu-item site-nav__menu-item--current">
+                    <a href="{% url 'home' %}" tabindex="-1" title="返回首页">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a>
+                </li>
+            </ul>
+            <div class="site-nav__sets-container">
+                <div class="site-nav__sets-inner">
+                    <h2>博客</h2>
+                    <ul class="site-nav__menu" aria-label="links to product pages">
+                        <li class="site-nav__menu-item"><a href="{% url 'article_list' %}"
+                                                           tabindex="-1"
+                                                           title="阅读文章"><span
+                                class="site-nav__menu-item-label">文章</span></a></li>
+                        <li class="site-nav__menu-item"><a href="{% url 'thumbnail' %}"
+                                                           tabindex="-1"
+                                                           title="阅读相册"><span
+                                class="site-nav__menu-item-label">相册</span></a></li>
+                    </ul>
+                </div>
+                <div class="site-nav__sets-inner">
+                    <h2>账户</h2>
+                    <ul class="site-nav__menu" aria-label="links to product pages">
+                        {% if user.is_authenticated %}
+                        <li class="site-nav__menu-item"><a href="{% url 'logout' %}"
+                                                           tabindex="-1"
+                                                           title="登出网站"><span
+                                class="site-nav__menu-item-label">登出</span></a></li>
+                        {% else %}
+                        <li class="site-nav__menu-item"><a href="{% url 'login' %}"
+                                                           tabindex="-1"
+                                                           title="用已有账户登入"><span
+                                class="site-nav__menu-item-label">登入</span></a></li>
+                        {% endif %}
+                        <li class="site-nav__menu-item"><a href="{% url 'register' %}"
+                                                           tabindex="-1"
+                                                           title="注册用于登入的账户"><span
+                                class="site-nav__menu-item-label">注册</span></a></li>
+                    </ul>
+                </div>
+                <div class="site-nav__sets-inner">
+                    <ul class="site-nav__menu" aria-label="links to product pages">
+                        <li class="site-nav__menu-item"><a href="{% url 'contact_me' %}"
+                                                           tabindex="-1"
+                                                           title="联系我"><span
+                                class="site-nav__menu-item-label">联系我</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    <main class="site-content site-content--home" id="main-content">
+        <div class="container">
+            {% block container %}
+            {% endblock %}
+        </div>
+    </main>
 
-<footer class="blog-footer">
-    <p>Blog template built for <a href="http://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.
-    </p>
-    <p>
-        <a href="#">Back to top</a>
-    </p>
-</footer>
+    <footer class="blog-footer" style="background-color: #F0F0F0;">
+        <p>Blog template built for <a href="http://getbootstrap.com/">Bootstrap</a> by <a
+                href="https://twitter.com/mdo">@mdo</a>.
+        </p>
+        <p>
+            <a href="#">返回顶部</a>
+        </p>
+    </footer>
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+    <script src="{% static 'js/analytics.js' %}"></script>
+    <script src="{% static 'js/app-fe4a5ef832.js' %}"></script>
+    <script src="{% static 'js/gtm.js' %}"></script>
+    <script src="{% static 'hotjar-183752.js' %}"></script>
+    <script src="{% static 'modules.js' %}"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
 
 </body>
 </html>

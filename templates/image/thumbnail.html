@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% block container %}
-<div class="blog-header">
-    <h3><b>图片列表</b></h3>
-</div>
 
 <div class="row">
 
-    <div class="col-sm-8 blog-main">
+    <div class=" panel panel-default col-sm-8 blog-main">
+        <div class="blog-header">
+            <h3>图片列表</h3>
+        </div>
 
         <div class="blog-post">
-            <h3></h3>
+            <h4></h4>
             <p class="blog-post-meta">共有图片{{ images|length }}个</p>
             <hr>
             {% for item in images %}
