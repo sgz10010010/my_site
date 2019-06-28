@@ -1,34 +1,29 @@
 {% extends 'base.html' %}
+
 {% block container %}
-
-<div class="row">
-
-    <div class=" panel panel-default col-sm-8 blog-main">
-        <div class="blog-header">
-            <h3>图片列表</h3>
-        </div>
-
-        <div class="blog-post">
-            <h4></h4>
-            <p class="blog-post-meta">共有图片{{ images|length }}个</p>
-            <hr>
-            {% for item in images %}
-            <div class="responsive">
-                <div class="img">
-                    <a target="_blank" href="{% url 'image_detail' item.id %}">
-                        <img src="{% url 'home' %}media/{{ item.image }}" alt="相片" width="300" height="200">
-                        <div class="desc">{{ item.description }}</div>
-                    </a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        <!-- 页码 -->
-        {% if page_now %}
-        {% include 'page_nav.html' %}
-        {% endif %}
+<div class=" panel panel-default col-sm-8 blog-main">
+    <div class="blog-header">
+        <h3>图片列表</h3>
     </div>
+
+    <div class="blog-post">
+        <h4></h4>
+        <p class="blog-post-meta">共有图片{{ images|length }}个</p>
+        <hr>
+        {% for item in images %}
+        <div class="responsive">
+            <div class="img">
+                <a target="_blank" href="{% url 'image_detail' item.id %}">
+                    <img src="{% url 'home' %}media/{{ item.image }}" alt="相片" width="300" height="200">
+                    <div class="desc">{{ item.description }}</div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- 页码 -->
+    {% if page_now %}
+    {% include 'page_nav.html' %}
+    {% endif %}
 </div>
-
-
 {%endblock%}

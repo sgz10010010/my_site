@@ -2,68 +2,65 @@
 
 {% block container %}
 
-<div class="row">
-
-    <div class="panel panel-default col-sm-8 blog-main">
-        <div class="blog-header">
-            <h3>图片浏览</h3>
-        </div>
-
-        <div class="blog-post">
-            <h4><b>{{ image.name }}</b></h4>
-            <p class="blog-post-meta">作者: <a href="#">{{ image.author.username }}</a>&nbsp
-                创作时间: {{ image.created_time|date:"Y-m-d" }}&nbsp阅读数: {{ read_count }}&nbsp回复数: {{ comments|length }}
-            </p>
-            <hr>
-            <div class="normal-text">
-                <img src="{% url 'home' %}media/{{ image.image }}" alt="相片" style="width:80%;margin:auto">
-                <div>{{ image.description }}</div>
-            </div><!-- /.blog-post -->
-
-            <!-- 上下篇导航 -->
-            <nav aria-label="...">
-                <ul class="pager">
-                    {% if prev_article %}
-                    <li class="previous"><a href="{% url 'image_detail' prev_image.id %}"><span
-                            aria-hidden="true">&larr;</span>上一张</a></li>
-                    {% else %}
-                    <li class="previous"><a href="#">无上一张</a></li>
-                    {% endif %}
-
-                    {% if next_article %}
-                    <li class="next"><a href="{% url 'image_detail' next_image.id %}">下一张<span
-                            aria-hidden="true">&rarr;</span></a></li>
-                    {% else %}
-                    <li class="next"><a href="#"><span aria-hidden="true"></span>无下一张</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-            <!-- 评论列表区 -->
-            <h3><b>评论列表(共{{ comments|length }}条)</b></h3>
-            <hr>
-            {% for comment in page_now %}
-            <p class="normal-text"><font size="4">
-                {{ comment.user }}于{{ comment.comment_time }}说：{{ comment.text|safe }}
-            </font><br>
-            <hr>
-            </p>
-            {% empty %}
-            暂无评论
-            {% endfor %}
-            {% if page_now %}
-            {% include 'page_nav.html' %}
-            {% endif %}
-            <hr>
-            <!-- 评论提交区 -->
-            <form action="{% url 'add_image_comment' %}?from={{ request.get_full_path }}"
-                  method="POST">
-                {% csrf_token %}
-                {{ comment_form }}
-                <input type="hidden" name="image_id" value="{{ image.id }}">
-                <input class="btn btn-info pull-right" type="submit" value="提交">
-            </form>
-        </div>
+<div class="panel panel-default col-sm-8 blog-main">
+    <div class="blog-header">
+        <h3>图片浏览</h3>
     </div>
 
-</div><!-- /.row -->
+    <div class="blog-post">
+        <h4><b>{{ image.name }}</b></h4>
+        <p class="blog-post-meta">作者: <a href="#">{{ image.author.username }}</a>&nbsp
+            创作时间: {{ image.created_time|date:"Y-m-d" }}&nbsp阅读数: {{ read_count }}&nbsp回复数: {{ comments|length }}
+        </p>
+        <hr>
+        <div class="normal-text">
+            <img src="{% url 'home' %}media/{{ image.image }}" alt="相片" style="width:80%;margin:auto">
+            <div>{{ image.description }}</div>
+        </div><!-- /.blog-post -->
+
+        <!-- 上下篇导航 -->
+        <nav aria-label="...">
+            <ul class="pager">
+                {% if prev_article %}
+                <li class="previous"><a href="{% url 'image_detail' prev_image.id %}"><span
+                        aria-hidden="true">&larr;</span>上一张</a></li>
+                {% else %}
+                <li class="previous"><a href="#">无上一张</a></li>
+                {% endif %}
+
+                {% if next_article %}
+                <li class="next"><a href="{% url 'image_detail' next_image.id %}">下一张<span
+                        aria-hidden="true">&rarr;</span></a></li>
+                {% else %}
+                <li class="next"><a href="#"><span aria-hidden="true"></span>无下一张</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <!-- 评论列表区 -->
+        <h3><b>评论列表(共{{ comments|length }}条)</b></h3>
+        <hr>
+        {% for comment in page_now %}
+        <p class="normal-text"><font size="4">
+            {{ comment.user }}于{{ comment.comment_time }}说：{{ comment.text|safe }}
+        </font><br>
+        <hr>
+        </p>
+        {% empty %}
+        暂无评论
+        {% endfor %}
+        {% if page_now %}
+        {% include 'page_nav.html' %}
+        {% endif %}
+        <hr>
+        <!-- 评论提交区 -->
+        <form action="{% url 'add_image_comment' %}?from={{ request.get_full_path }}"
+              method="POST">
+            {% csrf_token %}
+            {{ comment_form }}
+            <input type="hidden" name="image_id" value="{{ image.id }}">
+            <input class="btn btn-info pull-right" type="submit" value="提交">
+        </form>
+    </div>
+</div>
+
 {% endblock %}
