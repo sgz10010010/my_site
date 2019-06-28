@@ -11,5 +11,5 @@ class ArticleTypeAdmin(admin.ModelAdmin):
 # 后台的文章模型,继承自模型模块的文章模型
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-	list_display = ('id', 'title', 'article_type', 'author', 'read_count', 'is_deleted', 'created_time', 'update_time', )
+	list_display = ('id', 'title', 'article_type', 'author', 'read_count', 'created_time', 'update_time', )
 	ordering = ('-id',)

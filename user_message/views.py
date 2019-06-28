@@ -5,7 +5,6 @@ from image.models import Image
 from django.shortcuts import redirect
 
 
-@login_required
 def add_article_comment(request):
 	user = request.user
 	text = request.POST.get('text')
@@ -20,7 +19,6 @@ def add_article_comment(request):
 	return redirect(referer, '/')
 
 
-@login_required
 def add_image_comment(request):
 	user = request.user
 	text = request.POST.get('text')

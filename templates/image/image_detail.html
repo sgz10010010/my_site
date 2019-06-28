@@ -15,20 +15,20 @@
         <hr>
         <div class="normal-text">
             <img src="{% url 'home' %}media/{{ image.image }}" alt="相片" style="width:80%;margin:auto">
-            <div>{{ image.description }}</div>
+            <div>{{ image.description|safe }}</div>
         </div><!-- /.blog-post -->
 
         <!-- 上下篇导航 -->
         <nav aria-label="...">
             <ul class="pager">
-                {% if prev_article %}
+                {% if prev_image %}
                 <li class="previous"><a href="{% url 'image_detail' prev_image.id %}"><span
                         aria-hidden="true">&larr;</span>上一张</a></li>
                 {% else %}
                 <li class="previous"><a href="#">无上一张</a></li>
                 {% endif %}
 
-                {% if next_article %}
+                {% if next_image %}
                 <li class="next"><a href="{% url 'image_detail' next_image.id %}">下一张<span
                         aria-hidden="true">&rarr;</span></a></li>
                 {% else %}
@@ -53,6 +53,7 @@
         {% endif %}
         <hr>
         <!-- 评论提交区 -->
+        {% if user.is_authenticated %}
         <form action="{% url 'add_image_comment' %}?from={{ request.get_full_path }}"
               method="POST">
             {% csrf_token %}
@@ -60,6 +61,10 @@
             <input type="hidden" name="image_id" value="{{ image.id }}">
             <input class="btn btn-info pull-right" type="submit" value="提交">
         </form>
+        {% else %}
+        <a href="{% url 'login' %}">登录</a>或<a href="{% url 'register' %}">注册</a>
+        {% endif %}
+
     </div>
 </div>
 

@@ -52,14 +52,17 @@
         {% endif %}
         <hr>
         <!-- 评论提交区 -->
-
+	{% if user.is_authenticated %}
         <form action="{% url 'add_article_comment' %}?from={{ request.get_full_path }}"
               method="POST">
             {% csrf_token %}
             {{ comment_form }}
             <input type="hidden" name="article_id" value="{{ article.id }}">
             <input class="btn btn-info pull-right" type="submit" value="提交">
-        </form>
+	</form>
+	{% else %}
+	<a href="{% url 'login' %}">登录</a>或<a href="{% url 'register' %}">注册</a>
+	{% endif %}
     </div>
 </div>
 {% include 'article/type_list.html' %}

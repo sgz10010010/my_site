@@ -15,7 +15,7 @@
             <div class="img">
                 <a target="_blank" href="{% url 'image_detail' item.id %}">
                     <img src="{% url 'home' %}media/{{ item.image }}" alt="相片" width="300" height="200">
-                    <div class="desc">{{ item.description }}</div>
+                    <div class="desc">{{ item.name }}</div>
                 </a>
             </div>
         </div>
