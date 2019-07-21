@@ -21,7 +21,7 @@ class Article(models.Model):
 	# 标题
 	title = models.CharField(max_length=50, verbose_name='标题')
 	# 内容
-	content = RichTextField(verbose_name='内容')
+	content = RichTextUploadingField(verbose_name='内容')
 	# 文章类型
 	article_type = models.ForeignKey(ArticleType, on_delete=models.DO_NOTHING, verbose_name='文章类型')
 	# 作者

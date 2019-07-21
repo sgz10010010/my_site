@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from home.views import home, cv_download, contact_me
 from django.views.static import serve
-from my_site.settings import MEDIA_ROOT
+from my_site.settings import MEDIA_ROOT, MEDIA_URL
+from django.conf.urls.static import static
 
 urlpatterns = [
 	path('', home, name='home'),
@@ -29,5 +30,8 @@ urlpatterns = [
 	path('user_message/', include('user_message.urls')),
 	path('contact_me/', contact_me, name='contact_me'),
 	path('cv_download/', cv_download, name='cv_download'),
+        path('ckeditor', include('ckeditor_uploader.urls')),
 	re_path(r'media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
 ]
+
+urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
